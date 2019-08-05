@@ -9,11 +9,15 @@ include(ExternalProject)
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/g2o)
 
 ExternalProject_Add(g2o_src
-  GIT_REPOSITORY https://github.com/ffurrer/g2o.git
-  GIT_TAG fix/suitesparse_include
+	GIT_REPOSITORY https://github.com/RainerKuemmerle/g2o.git
+  # GIT_TAG fix/suitesparse_include
+  # GIT_TAG d86dd9d6c31e8f11e113eae90297a4b8958ff393	# add Edge return false
+  # GIT_TAG e32ccb05bd8f0187d87ef74ac95d08f56c105c4e	#
+  # GIT_TAG 653c9eedc51f73394451cd8f55463c962b4092ab	# fix alignment error and warning
+  GIT_TAG 12384734eae994583ab725bd570bcb94e1aa52e6	# fix alignment error and warning
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}/g2o
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CATKIN_DEVEL_PREFIX} -DCMAKE_BUILD_TYPE=Release
-  -DBUILD_SHARED_LIBS=ON
+  -DBUILD_SHARED_LIBS=ON -DG2O_BUILD_APPS=OFF -DG2O_BUILD_EXAMPLES=OFF -DG2O_BUILD_PLAYGROUND=OFF
 )
 
 ExternalProject_Get_Property(g2o_src install_dir)
